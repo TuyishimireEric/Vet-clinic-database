@@ -5,6 +5,6 @@ vet_clinic=# CREATE TABLE animals(
     name text,
     date_of_birth date,
     escape_attempts int,
-    neutered bit, 
-    weight_kg dec 
+    neutered boolean, 
+    weight_kg float
 );
