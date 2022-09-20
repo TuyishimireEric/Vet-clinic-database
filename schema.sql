@@ -8,3 +8,6 @@ vet_clinic=# CREATE TABLE animals(
     neutered boolean, 
     weight_kg float
 );
+
+ALTER TABLE animals
+ADD COLUMN species text;
