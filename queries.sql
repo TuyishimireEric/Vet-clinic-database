@@ -21,3 +21,44 @@ SELECT * from animals WHERE name != 'Gabumon';
 
 /* Find all animals with a weight between 10.4kg and 17.3kg (including the animals with the weights that equals precisely 10.4kg or 17.3kg) */
 SELECT * from animals WHERE weight_kg BETWEEN 10.4 AND 17.3;
+
+/* all inside transaction update  queries */
+BEGIN TRANSACTION;
+  ALTER TABLE animals RENAME COLUMN species TO unspecified;
+ROLLBACK TRANSACTION;
+
+BEGIN TRANSACTION;
+  UPDATE animals SET species = 'digimon' WHERE Name like '%mon';
+  UPDATE animals SET species = 'pokemon' WHERE species is null;
+COMMIT TRANSACTION;
+SELECT * FROM animals;
+
+BEGIN;
+  DELETE FROM animals;
+ROLLBACK;
+SELECT * FROM animals;
+
+BEGIN;
+  DELETE FROM animals WHERE date_of_birth >= '2022-01-01';
+  SAVEPOINT savepoint1;
+  UPDATE animals SET weight_kg = weight_kg * -1;
+  ROLLBACK SAVEPOINT savepoint1;
+  UPDATE animals SET weight_kg = weight_kg * -1 WHERE weight_kg <0;
+COMMIT;
+
+
+/* Queries to answer questions */
+SELECT count(*) as number_of_animals FROM animals;
+SELECT count(*) FROM animals WHERE escape_attempts = 0;
+SELECT avg(weight_kg) FROM animals;
+SELECT escape_attempts, neutered FROM animals WHERE escape_attempts = (SELECT MAX(escape_attempts) FROM animals);
+SELECT species, max(weight_kg) as max_weight, min(weight_kg) as min_weight from animals GROUP BY species;
+SELECT avg(escape_attempts) as avg_escape_attempt, species FROM animals WHERE date_of_birth BETWEEN '1990-01-01' AND '2000-01-01' GROUP BY species;
+
+
+
+  
+
+
+
+
