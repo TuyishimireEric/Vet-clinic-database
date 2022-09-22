@@ -11,3 +11,11 @@ vet_clinic=# CREATE TABLE animals(
 
 ALTER TABLE animals
 ADD COLUMN species text;
+
+/* query multiple tables */
+CREATE TABLE owners( id SERIAL PRIMARY KEY, full_name text, age dec);
+CREATE TABLE species( id SERIAL PRIMARY KEY, name text);
+ALTER TABLE animals DROP COLUMN species;
+ALTER TABLE animals ADD COLUMN species_id INT REFERENCES species(id);
+ALTER TABLE animals ADD COLUMN owners_id INT REFERENCES owners(id);
+
