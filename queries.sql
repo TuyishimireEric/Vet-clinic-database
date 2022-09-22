@@ -65,6 +65,24 @@ SELECT animals.name FROM animals JOIN owners ON animals.owners_id = owners.id JO
 SELECT animals.name FROM animals JOIN owners ON animals.owners_id = owners.id WHERE owners.id = 5 AND animals.escape_attempts = 0;
 SELECT owners.full_name, COUNT(*) FROM owners JOIN animals ON owners.id = animals.owners_id GROUP BY owners.full_name ORDER BY COUNT (*) DESC LIMIT 1;
 
+/* _________________________JOIN TABLE __________________________________ */
+SELECT animals.name FROM animals JOIN visits on visits.animals_id = animals.id WHERE vets_id = 1 ORDER BY date_of_visit DESC LIMIT 1;
 
+SELECT animals.name FROM animals JOIN visits ON visits.animals_id = animals.id WHERE vets_id = 3;
 
-  
+SELECT vets.name, species.name FROM vets LEFT JOIN specializations ON specializations.vets_id = vets.id
+LEFT JOIN species ON specializations.species_id = species.id;
+
+SELECT animals.name, visits.date_of_visit FROM animals JOIN visits ON visits.animals_id = animals.id 
+WHERE vets_id = 3 AND visits.date_of_visit BETWEEN '2020-04-01' AND '2020-08-30';
+
+SELECT animals.name, COUNT(visits.animals_id) as most_visit FROM animals JOIN visits ON animals.id = visits.animals_id 
+GROUP BY visits.animals_id, animals.name ORDER BY most_visit DESC LIMIT 1;
+
+SELECT animals.name, vets.name, visits.date_of_visit FROM animals JOIN visits ON animals.id = visits.animals_id JOIN vets ON visits.vets_id = vets.id
+WHERE visits.vets_id = 2 ORDER BY date_of_visit ASC LIMIT 1;
+
+SELECT COUNT(*) FROM animals INNER JOIN visits ON animals.id = visits.animals_id INNER JOIN vets ON vets.id = visits.vets_id WHERE vets.id = 2;
+
+SELECT COUNT(visits.animals_id) AS count_visits, species.name FROM visits JOIN animals ON animals.id = visits.animals_id JOIN species ON animals.species_id = species.id
+WHERE visits.vets_id = 2 GROUP BY species.name ORDER BY count_visits DESC
