@@ -67,4 +67,4 @@ SELECT owners.full_name, COUNT(*) FROM owners JOIN animals ON owners.id = animal
 
 
 
-
+  
