@@ -92,3 +92,8 @@ WHERE visits.vets_id = 2 GROUP BY species.name ORDER BY count_visits DESC
 EXPLAIN ANALYZE SELECT COUNT(*) FROM visits where animals_id = 4; -- to check what is happening
 CREATE INDEX visits_asc ON visits(animal_id ASC); -- to decrease the execution time of the first query
 
+EXPLAIN ANALYZE SELECT * FROM visits where vets_id = 2; -- to check what is happening
+CREATE INDEX visits_vets_asc ON visits(vets_id ASC); -- to decrease the execution time of the second query
+
+EXPLAIN ANALYZE SELECT * FROM owners where email = 'owner_18327@mail.com'; -- to check what is happening
+CREATE INDEX owners_email_desc ON owners(email DESC); -- to decrease the execution time of the second query
