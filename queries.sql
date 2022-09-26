@@ -86,3 +86,9 @@ SELECT COUNT(*) FROM animals INNER JOIN visits ON animals.id = visits.animals_id
 
 SELECT COUNT(visits.animals_id) AS count_visits, species.name FROM visits JOIN animals ON animals.id = visits.animals_id JOIN species ON animals.species_id = species.id
 WHERE visits.vets_id = 2 GROUP BY species.name ORDER BY count_visits DESC
+
+/* ------------------------ database performance audit -------------------------------------- */
+
+EXPLAIN ANALYZE SELECT COUNT(*) FROM visits where animals_id = 4; -- to check what is happening
+CREATE INDEX visits_asc ON visits(animal_id ASC); -- to decrease the execution time of the first query
+
